@@ -11,7 +11,7 @@ import lombok.Setter;
 @Entity
 public class User {
     @Id
-    @Column(unique = true)
+    @Column(unique = true) //유일한 값 저장
     private String userId;
 
     private String password;

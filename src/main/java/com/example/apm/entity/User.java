@@ -1,25 +1,18 @@
 package com.example.apm.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Data
-@Entity(name="USER_INFO")
-@NoArgsConstructor
+@Getter
+@Setter
+@Entity
 public class User {
     @Id
+    @Column(unique = true)
     private String userId;
-    private String password;
 
-    @Builder
-    public User(
-            String userId,
-            String password) {
-        this.userId = userId;
-        this.password = password;
-    }
+    private String password;
 }

@@ -1,0 +1,35 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>회원가입</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div layout:fragment="content" class="container my-3">-->
+<!--  <div class="my-3 border-bottom">-->
+<!--    <div>-->
+<!--      <h4>회원가입</h4>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">-->
+<!--    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+<!--    <div class="mb-3">-->
+<!--      <label for="userId" class="form-label">사용자ID</label>-->
+<!--      <input type="text" th:field="*{userId}" class="form-control">-->
+<!--      <div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" class="text-danger"></div>-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--      <label for="password1" class="form-label">비밀번호</label>-->
+<!--      <input type="password" th:field="*{password1}" class="form-control">-->
+<!--      <div th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}" class="text-danger"></div>-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--      <label for="password2" class="form-label">비밀번호 확인</label>-->
+<!--      <input type="password" th:field="*{password2}" class="form-control">-->
+<!--      <div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}" class="text-danger"></div>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn btn-primary">회원가입</button>-->
+<!--  </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

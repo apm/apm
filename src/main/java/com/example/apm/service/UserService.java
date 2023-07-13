@@ -18,5 +18,9 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(password));
         this.userRepository.save(user);
         return user;
+    } //회원가입
+
+    public boolean checkUserIdDuplicate(String userId){
+        return userRepository.existsByUserId(userId);
     }
 }

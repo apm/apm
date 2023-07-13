@@ -4,9 +4,11 @@ import com.example.apm.form.UserCreateForm;
 import com.example.apm.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,4 +39,10 @@ public class UserController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/signup/{userId}")
+    public ResponseEntity<Boolean> checkUserIdDuplicate(@PathVariable String userId){
+        return ResponseEntity.ok(userService.checkUserIdDuplicate(userId));
+    }
+
 }

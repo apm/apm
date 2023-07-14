@@ -9,10 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class User {
+public class SiteUser {
     @Id
-    @Column(unique = true) //유일한 값 저장
-    private String userId;
+    @Column(name = "user_name", unique = true) //유일한 값 저장
+    private String username;
 
     private String password;
 }

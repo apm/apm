@@ -1,9 +1,10 @@
 package com.example.apm.repository;
 
-import com.example.apm.entity.User;
+import com.example.apm.entity.SiteUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, String> {
+import java.util.Optional;
 
-    boolean existsByUserId(String userId);
+public interface UserRepository extends JpaRepository<SiteUser, String> {
+    Optional<SiteUser> findByusername(String username);
 }

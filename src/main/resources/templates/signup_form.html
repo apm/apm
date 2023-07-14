@@ -1,4 +1,4 @@
-<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3">
     <div class="my-3 border-bottom">
         <div>
@@ -8,16 +8,16 @@
     <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="mb-3">
-            <label for="userId" class="form-label">ID</label>
-            <input type="text" id="userId" th:field="*{userId}" class="form-control">
+            <label for="username" class="form-label">사용자ID</label>
+            <input type="text" id="username" th:field="*{username}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="password1" class="form-label">비밀번호</label>
-            <input type="password" id=password1 th:field="*{password1}" class="form-control">
+            <input type="password" id="password1" th:field="*{password1}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="password2" class="form-label">비밀번호 확인</label>
-            <input type="password" id=password2 th:field="*{password2}" class="form-control">
+            <input type="password" id="password2" th:field="*{password2}" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">회원가입</button>
     </form>

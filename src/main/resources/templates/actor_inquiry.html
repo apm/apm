@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>배우 조회</title>
+</head>
+<body>
+<h1>전체 배우 조회</h1>
+<table>
+    <tr>
+        <th>배우 ID</th>
+        <th>배우 이름</th>
+    </tr>
+    <tr th:each="actor : ${actorList}">
+        <td th:text="${actor.actorId}"></td>
+        <td th:text="${actor.actorName}"></td>
+    </tr>
+</table>
+</body>
+</html>

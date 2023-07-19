@@ -44,6 +44,9 @@ dependencies {
 	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 	implementation group: 'org.springframework.security', name: 'spring-security-web', version: '6.1.1'
 	implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+
+	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+
 }
 
 tasks.named('test') {

@@ -29,9 +29,14 @@ public class SecurityConfig {
                 .addHeaderWriter(new XFrameOptionsHeaderWriter(
                         XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
                 .and()
-                .formLogin()
-                .loginPage("/user/login")
-                .defaultSuccessUrl("/")
+                    .formLogin()//로그인 설정을 담당하는 부분
+                    .loginPage("/user/login")//로그인 페이지의 url설정
+                    .defaultSuccessUrl("/")//로그인 성공시 이동하는 페이지
+                .and()
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")) //logout url 설정
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true) //로그아웃시 사용자 세션 삭제하도록 처리
         ;
         return http.build();
     }

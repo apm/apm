@@ -1,0 +1,26 @@
+package com.example.apm.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+public class View {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer viewId;
+
+    @Column(columnDefinition = "TEXT") //글자 수 제한x
+    private String viewInformation; //시야정보
+
+    @Column(nullable = false)
+    @Min(value = 1)
+    @Max(value = 5)
+    private int seatScore; //좌석점수
+
+    @ManyToOne //FK
+    private Seat seat; //시야정보에서 좌석엔티티를 참조하도록 설정. 시야 객체를 통해 좌석명을 알고 싶다면 view.getSeat().getSeatName();
+}

@@ -6,14 +6,20 @@
 <body>
 <h1>전체 배우 조회</h1>
 <table>
+    <thead>
     <tr>
         <th>배우 ID</th>
         <th>배우 이름</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="actor : ${actorList}">
         <td th:text="${actor.actorId}"></td>
-        <td th:text="${actor.actorName}"></td>
+        <td>
+            <a th:href="@{|/actor/detail/${actor.actorId}|}" th:text="${actor.actorName}"></a>
+        </td>
     </tr>
+    </tbody>
 </table>
 </body>
 </html>

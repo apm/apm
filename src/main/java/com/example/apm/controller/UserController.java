@@ -23,9 +23,13 @@ public class UserController {
 
     @Autowired
     private final UserRepository userRepository;
-
+    @Autowired
     private final UserService userService;
 
+    @GetMapping("/signup")
+    public String showSignupForm(UserCreateForm userCreateForm) {
+        return "signup_form"; // 해당 뷰 템플릿으로 이동
+    }
     @PostMapping("/signup")
     public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

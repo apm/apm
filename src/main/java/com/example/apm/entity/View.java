@@ -5,6 +5,8 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -14,7 +16,7 @@ public class View {
     private Integer viewId;
 
     @Column(columnDefinition = "TEXT") //글자 수 제한x
-    private String viewInformation; //시야정보
+    private String comment; //시야정보
 
     @Column(nullable = false)
     @Min(value = 1)
@@ -23,4 +25,9 @@ public class View {
 
     @ManyToOne //FK
     private Seat seat; //시야정보에서 좌석엔티티를 참조하도록 설정. 시야 객체를 통해 좌석명을 알고 싶다면 view.getSeat().getSeatName();
+
+    private LocalDateTime writeDate;
+
+    @ManyToOne
+    private SiteUser writer; //뷰 작성자
 }

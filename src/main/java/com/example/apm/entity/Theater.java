@@ -17,6 +17,10 @@ public class Theater {
     @Column(nullable = false)
     private String theaterName; //극장명
 
+    private String theaterArea; //극장 주소
+
+    private String theaterSeats; //좌석수
+
     @OneToMany(mappedBy = "theater", cascade = CascadeType.REMOVE) //극장이 삭제되면 달린 좌석까지 삭제
     private List<Seat> seatList;
 }

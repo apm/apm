@@ -1,3 +1,6 @@
-<!--<h1 th:text="${actor.actorId}" xmlns:th="http://www.w3.org/1999/xhtml"></h1>-->
-<h3 th:text="${actor.actorName}" xmlns:th="http://www.w3.org/1999/xhtml"></h3>
-<img th:src="${actor.image}" alt="Actor Image" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <h3 th:text="${actor.actorName}"></h3>
+    <img th:src="${actor.image}" alt="Actor Image"/>
+</body>

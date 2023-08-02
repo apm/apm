@@ -17,6 +17,9 @@ public class PmShow { //show가 예약어여서 pmShow로 설정
     @Column(nullable = false)
     private String title; //공연제목
 
+//    @Column(nullable = false)
+//    private String showCast; //배우 캐스팅
+
     @Column(nullable = false)
     private String ShowDate; //공연기간
 

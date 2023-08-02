@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>시야 조회</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<h1>시야 조회</h1>
+<table>
+  <thead>
+  <tr>
+    <th>유저</th>
+    <th>코멘트</th>
+    <th>점수</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="view : ${viewList}">
+    <td th:text="${siteUser.username}"></td>
+    <td th:text="${view.comment}"></td>
+    <td th:text="${view.seatScore}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

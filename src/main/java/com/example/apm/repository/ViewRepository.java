@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public interface ViewRepository extends JpaRepository<View, Integer> {
     View findBySeat(Seat seat);
-
     Optional<View> findByViewId(Integer ViewId);
-
     List<View> findBySeatScore(int seatScore);
 }

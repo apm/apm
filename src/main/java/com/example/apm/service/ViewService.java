@@ -31,7 +31,6 @@ public class ViewService {
             throw new DataNotFoundException("시야 정보가 없습니다.");
         }
     }
-
     public void create(Seat seat, String comment, int seatScore, SiteUser writer){
         View view = new View();
         view.setComment(comment);

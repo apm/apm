@@ -3,22 +3,22 @@
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <body>
 <h2 th:text="${theater.theaterName}"></h2>
-<div th:text="${theater.theaterArea}"></div><br>
+<div th:text="${theater.theaterLocation}"></div><br>
 <div class="container my-3">
     <table class="table">
         <thead class="table-dark">
-            <tr>
-                <th>번호</th>
-                <th>좌석명</th>
-            </tr>
+        <tr>
+            <th>번호</th>
+            <th>좌석명</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="seat, loop : ${seatList}">
-                <td th:text="${loop.count}"></td>
-                <td>
-                    <a th:href="@{|/seat/${seat.seatId}|}" th:text="${seat.seatName}"></a>
-                </td>
-            </tr>
+        <tr th:each="seat, loop : ${seatList}">
+            <td th:text="${loop.count}"></td>
+            <td>
+                <a th:href="@{|/seat/${seat.seatId}|}" th:text="${seat.seatName}"></a>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

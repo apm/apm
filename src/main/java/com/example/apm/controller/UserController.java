@@ -20,7 +20,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
     @Autowired
     private final UserRepository userRepository;
     @Autowired
@@ -28,7 +27,7 @@ public class UserController {
 
     @GetMapping("/signup")
     public String showSignupForm(UserCreateForm userCreateForm) {
-        return "signup_form"; // 해당 뷰 템플릿으로 이동
+        return "signup_form"; // 뷰 템플릿으로 이동
     }
     @PostMapping("/signup")
     public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {

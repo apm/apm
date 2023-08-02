@@ -1,15 +1,15 @@
 package com.example.apm.service;
 
-import com.example.apm.DataNotFoundException;
-import com.example.apm.entity.Seat;
-import com.example.apm.entity.Theater;
-import com.example.apm.entity.View;
-import com.example.apm.repository.TheaterRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.example.apm.DataNotFoundException;
+import com.example.apm.entity.Theater;
+import com.example.apm.repository.TheaterRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service

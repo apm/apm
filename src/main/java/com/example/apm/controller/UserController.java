@@ -6,13 +6,13 @@ import com.example.apm.repository.UserRepository;
 import com.example.apm.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Optional;
 
@@ -20,42 +20,27 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
     private final UserRepository userRepository;
-    @Autowired
     private final UserService userService;
 
-    @GetMapping("/signup")
-    public String showSignupForm(UserCreateForm userCreateForm) {
-        return "signup_form"; // 뷰 템플릿으로 이동
-    }
     @PostMapping("/signup")
-    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "signup_form";
-        }
-
+    @ResponseBody
+    public ResponseEntity<String> signup(@Valid @RequestBody UserCreateForm userCreateForm) {
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
-            bindingResult.rejectValue("password2", "passwordInCorrect",
-                    "패스워드가 일치하지 않습니다.");
-            return "signup_form";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"error\": \"패스워드가 일치하지 않습니다.\"}");
         }
 
-        // Check if userName already exists in the database
+        // 사용자 이름이 이미 데이터베이스에 존재하는지 확인
         Optional<SiteUser> existingUser = userRepository.findByusername(userCreateForm.getUsername());
         if (existingUser.isPresent()) {
-            bindingResult.rejectValue("username", "usernameExists",
-                    "이미 사용 중인 사용자 이름입니다.");
-            return "signup_form";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"error\": \"이미 사용 중인 사용자 이름입니다.\"}");
         }
 
         userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1());
 
-        return "redirect:/";
+        return ResponseEntity.ok("{\"message\": \"사용자가 성공적으로 생성되었습니다.\"}");
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login_form";
-    }
 }

@@ -54,7 +54,7 @@ public class ActorService {
         }
     } //특정 배우 조회
 
-    public Page<Actor> getList(int page){
+    public Page<Actor> getActorList(int page){
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.asc("actorName"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); //배우 이름순으로 정렬

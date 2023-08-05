@@ -12,6 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -24,24 +27,19 @@ public class SecurityConfig {
         http.authorizeHttpRequests().requestMatchers(
                         new AntPathRequestMatcher("/**")).permitAll()
                 .and()
-                .csrf().ignoringRequestMatchers(
-                        new AntPathRequestMatcher("/mysql-console/**"))
+                .csrf().disable()
+                .formLogin()//로그인 설정을 담당하는 부분
+                .loginPage("/user/login")//로그인 페이지의 url설정
+                .defaultSuccessUrl("/")//로그인 성공시 이동하는 페이지
                 .and()
-                .headers()
-                .addHeaderWriter(new XFrameOptionsHeaderWriter(
-                        XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
-                .and()
-                    .formLogin()//로그인 설정을 담당하는 부분
-                    .loginPage("/user/login")//로그인 페이지의 url설정
-                    .defaultSuccessUrl("/")//로그인 성공시 이동하는 페이지
-                .and()
-                    .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")) //logout url 설정
-                    .logoutSuccessUrl("/")
-                    .invalidateHttpSession(true) //로그아웃시 사용자 세션 삭제하도록 처리
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")) //logout url 설정
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true) //로그아웃시 사용자 세션 삭제하도록 처리
         ;
         return http.build();
     }
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -52,5 +50,3 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }
-
-// spring security에는 비밀번호를 암호화해주는 BCryptPasswordEncoder가 존재 -> spring에 등록해놓고 비밀번호 암호화, 체크시 사용

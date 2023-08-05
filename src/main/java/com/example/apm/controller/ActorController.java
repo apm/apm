@@ -1,6 +1,7 @@
 package com.example.apm.controller;
 
 import com.example.apm.entity.Actor;
+import com.example.apm.entity.Theater;
 import com.example.apm.repository.ActorRepository;
 import com.example.apm.service.ActorService;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +22,18 @@ import java.util.List;
 public class ActorController {
     @Autowired
     private final ActorService actorService;
-    @GetMapping("/list")
-    public String actorInquiry(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        Page<Actor> paging = this.actorService.getList(page);
-        model.addAttribute("paging", paging);
-        return "actor_list";
-    } // 전체 배우 조회 + 페이징
+
+    @GetMapping("/list") // 전체 극장 조회
+    public Page<Actor> list(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+        return actorService.getActorList(page);
+    }
+
+//    @GetMapping("/list")
+//    public String actorInquiry(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+//        Page<Actor> paging = this.actorService.getActorList(page);
+//        model.addAttribute("paging", paging);
+//        return "actor_list";
+//    } // 전체 배우 조회 + 페이징
 
     @GetMapping(value = "/{actorId}")
     public String detail(Model model, @PathVariable("actorId") Integer actorId){

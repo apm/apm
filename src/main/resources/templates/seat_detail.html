@@ -13,6 +13,7 @@
 </div>
 
 <form th:action="@{|/view/write/${seat.seatId}|}" method="post">
+  <input type="hidden" name="_csrf" value="{{#_csrf}}token{{/_csrf}}" />
   <textarea name="comment" id="comment" rows="5"></textarea>
   <select name="seatScore" id="seatScore">
     <option th:each="score : ${#numbers.sequence(1, 5)}" th:value="${score}" th:text="${score}"></option>

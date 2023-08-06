@@ -1,53 +1,49 @@
 package com.example.apm.controller;
 
-import com.example.apm.entity.Seat;
+import com.example.apm.dto.TheaterDTO;
 import com.example.apm.entity.Theater;
-import com.example.apm.entity.View;
-import com.example.apm.service.SeatService;
 import com.example.apm.service.TheaterService;
-import com.example.apm.service.ViewService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/theater")
 public class TheaterController {
-    @Autowired
-    private final TheaterService theaterService;
-    @Autowired
-    private final SeatService seatService;
-    @Autowired
-    private final ViewService viewService;
 
-    @GetMapping("/list") // 전체 극장 조회
-    public Page<Theater> list(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        return theaterService.getTheaterList(page);
+    private final TheaterService theaterService;
+
+    public TheaterController(TheaterService theaterService) {
+        this.theaterService = theaterService;
     }
 
-//    @GetMapping("/list") // 전체 극장 조회
-//    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-//        Page<Theater> paging = this.theaterService.getTheaterList(page);
-//        model.addAttribute("paging", paging);
-//        return "theater_list";
-//    }
-//
-//    @GetMapping(value = "/{theaterId}") // 특정 극장 조회
-//    public String detail(Model model, @PathVariable("theaterId") Integer theaterId) {
-//        Theater theater = this.theaterService.getTheater(theaterId);
-//        List<Seat> seatList = seatService.getSeatsByTheaterId(theaterId);
-//
-//        model.addAttribute("theater", theater);
-//        model.addAttribute("seatList", seatList);
-//
-//        return "theater_detail";
-//    }
+    @GetMapping("/{theaterId}")
+    public ResponseEntity<TheaterDTO> getTheater(@PathVariable("theaterId") Integer theaterId) {
+        Theater theater = theaterService.getTheater(theaterId);
+        if (theater != null) {
+            TheaterDTO theaterDTO = TheaterDTO.from(theater);
+            return ResponseEntity.ok(theaterDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        } //http://localhost:8080/theater/{theaterId}
+    }
 
+    @GetMapping("/list")
+    public ResponseEntity<List<TheaterDTO>> getAllTheaters(@RequestParam(value = "page", defaultValue = "0") int page) {
+        int size = 10; // 페이지 당 조회할 개수
+        Sort sort = Sort.by("theaterName").ascending(); // theaterName을 기준으로 오름차순 정렬
+        PageRequest pageable = PageRequest.of(page, size, sort);
 
+        Page<Theater> theaterPage = theaterService.getTheaterList(pageable);
+        List<TheaterDTO> theaterDTOList = theaterPage.getContent().stream()
+                .map(TheaterDTO::from)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(theaterDTOList);
+    } //http://localhost:8080/theater/list?page=1
 }

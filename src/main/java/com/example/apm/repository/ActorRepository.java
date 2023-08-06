@@ -13,4 +13,5 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
     List<Actor> findAll();
     Optional<Actor> findByActorId(Integer actorId);
     Page<Actor> findAll(Pageable pageable); //페이징처리
+
 }

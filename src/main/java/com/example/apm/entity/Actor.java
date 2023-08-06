@@ -2,10 +2,7 @@ package com.example.apm.entity;
 
 import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,8 +27,8 @@ public class Actor {
 
     private String actorRecentPlay3;
 
-    @ManyToMany
-    Set<SiteUser> likeUser; //좋아요 누른 사용자, 사용자가 중복되면 안되기 때문에 set 사용
+    @ManyToMany(fetch = FetchType.EAGER) // Eager Loading으로 설정
+    Set<SiteUser> likeUser;
 
     public Actor(){
 

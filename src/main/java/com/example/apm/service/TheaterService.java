@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.apm.entity.Actor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +23,6 @@ public class TheaterService {
     private final TheaterRepository theaterRepository;
     private final SeatService seatService;
 
-//    public List<Theater> getTheaterList() {
-//        return this.theaterRepository.findAll();
-//    }
-
     public Theater getTheater(Integer theaterId) {
         Optional<Theater> theater = this.theaterRepository.findByTheaterId(theaterId);
         if (theater.isPresent()) {
@@ -35,10 +32,7 @@ public class TheaterService {
         }
     }
 
-    public Page<Theater> getTheaterList(int page){
-        List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.asc("theaterName"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); //이름순으로 정렬
-        return this.theaterRepository.findAll(pageable);
+    public Page<Theater> getTheaterList(Pageable pageable) {
+        return theaterRepository.findAll(pageable);
     }
 }

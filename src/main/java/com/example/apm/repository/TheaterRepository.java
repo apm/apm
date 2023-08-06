@@ -10,6 +10,5 @@ import java.util.Optional;
 public interface TheaterRepository extends JpaRepository<Theater, Integer> {
     Theater findByTheaterName(String theaterName);
     Optional<Theater> findByTheaterId(Integer theaterId);
-
     Page<Theater> findAll(Pageable pageable);
 }

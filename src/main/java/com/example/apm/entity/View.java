@@ -2,6 +2,7 @@ package com.example.apm.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,4 +31,12 @@ public class View {
 
     @ManyToOne
     private SiteUser writer; //뷰 작성자
+
+    @Builder
+    public View(Seat seat, String comment, int seatScore, SiteUser writer){
+        this.comment = comment;
+        this.seatScore = seatScore;
+        this.seat = seat;
+        this.writer = writer; //뷰 저장시 작성자 저장됨
+    }
 }

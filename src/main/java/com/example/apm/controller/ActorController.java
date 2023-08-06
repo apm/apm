@@ -1,44 +1,43 @@
 package com.example.apm.controller;
 
+import com.example.apm.dto.ActorDTO;
+import com.example.apm.dto.TheaterDTO;
 import com.example.apm.entity.Actor;
 import com.example.apm.entity.Theater;
-import com.example.apm.repository.ActorRepository;
 import com.example.apm.service.ActorService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RequiredArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/actor")
 public class ActorController {
-    @Autowired
+
     private final ActorService actorService;
 
-    @GetMapping("/list") // 전체 극장 조회
-    public Page<Actor> list(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        return actorService.getActorList(page);
+    public ActorController(ActorService actorService) {
+        this.actorService = actorService;
     }
 
-//    @GetMapping("/list")
-//    public String actorInquiry(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-//        Page<Actor> paging = this.actorService.getActorList(page);
-//        model.addAttribute("paging", paging);
-//        return "actor_list";
-//    } // 전체 배우 조회 + 페이징
+    @GetMapping("/list")
+    public ResponseEntity<Page<Actor>> actorInquiry(@RequestParam(value = "page", defaultValue = "0") int page) {
+        // Pageable 객체를 사용하여 페이징과 정렬 정보를 함께 전달
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("actorName").ascending());
+        Page<Actor> paging = actorService.getActorList(pageable);
+        return ResponseEntity.ok(paging);
+    } //http://localhost:8080/actor/list?page=1
 
-    @GetMapping(value = "/{actorId}")
-    public String detail(Model model, @PathVariable("actorId") Integer actorId){
-        Actor actor = this.actorService.getActor(actorId);
-        model.addAttribute("actor", actor);
-        return "actor_detail";
+    @GetMapping("/{actorId}")
+    public ResponseEntity<ActorDTO> getTheater(@PathVariable("actorId") Integer actorId) {
+        Actor actor = actorService.getActor(actorId);
+        if (actor != null) {
+            ActorDTO actorDTO = ActorDTO.from(actor);
+            return ResponseEntity.ok(actorDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        } //http://localhost:8080/actor/{actorId}
     }
 }

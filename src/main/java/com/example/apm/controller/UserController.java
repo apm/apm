@@ -50,7 +50,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
-
     @PostMapping("/signup")
     public ResponseEntity<Map<String, String>> signup(@Valid @RequestBody UserCreateForm userCreateForm) {
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {

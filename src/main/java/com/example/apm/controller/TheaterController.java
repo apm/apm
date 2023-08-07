@@ -29,7 +29,7 @@ public class TheaterController {
     public ResponseEntity<Page<TheaterDTO>> getSeoulTheaterList(Pageable pageable) {
         Page<TheaterDTO> seoulTheaterList = theaterService.getSeoulTheaterList(pageable).map(TheaterDTO::from);
         return ResponseEntity.ok(seoulTheaterList);
-    } //서울 극장 조회
+    } //서울 극장 조회 http://localhost:8080/theater/list/seoul?page=1
 
     @GetMapping("/{theaterId}")
     public ResponseEntity<TheaterDTO> getTheater(@PathVariable("theaterId") Integer theaterId) {

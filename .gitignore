@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+#spring.datasource.url=jdbc:mysql://apm-schema.cdxe1dgzvny4.ap-northeast-2.rds.amazonaws.com:3306/apm_schema
+#spring.datasource.username=jsb
+#spring.datasource.password=bh8651011

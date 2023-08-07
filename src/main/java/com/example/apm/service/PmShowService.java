@@ -3,12 +3,14 @@ package com.example.apm.service;
 import com.example.apm.DataNotFoundException;
 import com.example.apm.entity.PmShow;
 import com.example.apm.repository.PmShowRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 
 @Service
 public class PmShowService {
@@ -19,7 +21,7 @@ public class PmShowService {
         this.pmShowRepository = pmShowRepository;
     }
 
-    public PmShow getPmShow(Integer pmShowId) {
+    public PmShow getPmShow(String pmShowId) {
         Optional<PmShow> pmShow = this.pmShowRepository.findById(pmShowId);
         if (pmShow.isPresent()) {
             return pmShow.get();

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PmShowDTO {
-    private Integer pmShowId;
+    private String pmShowId;
     private String title;
     private String showDate;
     private String genre;

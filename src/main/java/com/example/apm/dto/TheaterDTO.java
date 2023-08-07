@@ -10,19 +10,18 @@ public class TheaterDTO {
     private Integer theaterId;
     private String theaterName;
     private String theaterLocation;
-    private String theaterRecentPlay1;
-    private String theaterRecentPlay2;
-    private String theaterRecentPlay3;
+    private String theaterPhoneNumber;
+    private String theaterHomePage;
+    private Integer theaterTotalSeat;
 
     // 생성자
-    public TheaterDTO(Integer theaterId, String theaterName, String theaterLocation,
-                      String theaterRecentPlay1, String theaterRecentPlay2, String theaterRecentPlay3) {
+    public TheaterDTO(Integer theaterId, String theaterName, String theaterLocation, String theaterPhoneNumber, String theaterHomePage, Integer theaterTotalSeat) {
         this.theaterId = theaterId;
         this.theaterName = theaterName;
         this.theaterLocation = theaterLocation;
-        this.theaterRecentPlay1 = theaterRecentPlay1;
-        this.theaterRecentPlay2 = theaterRecentPlay2;
-        this.theaterRecentPlay3 = theaterRecentPlay3;
+        this.theaterPhoneNumber = theaterPhoneNumber;
+        this.theaterHomePage = theaterHomePage;
+        this.theaterTotalSeat = theaterTotalSeat;
     }
 
     // 엔티티를 DTO로 변환하는 정적 메서드
@@ -31,9 +30,9 @@ public class TheaterDTO {
                 theater.getTheaterId(),
                 theater.getTheaterName(),
                 theater.getTheaterLocation(),
-                theater.getTheaterRecentPlay1(),
-                theater.getTheaterRecentPlay2(),
-                theater.getTheaterRecentPlay3()
+                theater.getTheaterPhoneNumber(),
+                theater.getTheaterHomePage(),
+                theater.getTheaterTotalSeat()
         );
     }
 }

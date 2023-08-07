@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface PmShowRepository extends JpaRepository<PmShow, Integer> {
-    Optional<PmShow> findByPmShowId(Integer pmShowId);
+public interface PmShowRepository extends JpaRepository<PmShow, String> {
+    Optional<PmShow> findByPmShowId(String pmShowId);
     Page<PmShow> findAll(Pageable pageable);
 }

@@ -37,8 +37,6 @@ import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Service
-@Slf4j
-@EnableScheduling
 public class ActorService {
     private final ActorRepository actorRepository;
 

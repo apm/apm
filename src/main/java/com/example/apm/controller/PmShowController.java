@@ -29,7 +29,7 @@ public class PmShowController {
     } //http://localhost:8080/pmshow/list?page=1 전체 공연 조회
 
     @GetMapping("/{pmShowId}")
-    public ResponseEntity<PmShowDTO> getPmShowDetail(@PathVariable("pmShowId") Integer pmShowId) {
+    public ResponseEntity<PmShowDTO> getPmShowDetail(@PathVariable("pmShowId") String pmShowId) {
         PmShow pmShow = pmShowService.getPmShow(pmShowId);
         if (pmShow != null) {
             PmShowDTO pmShowDTO = PmShowDTO.from(pmShow);

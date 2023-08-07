@@ -22,13 +22,11 @@ public class Theater {
 
     private String theaterLocation;
 
-    private String theaterRecentPlay1;
+    private String theaterPhoneNumber;
 
-    private String theaterRecentPlay2;
+    private String theaterHomePage;
 
-    private String theaterRecentPlay3;
-
-
+    private Integer theaterTotalSeat;
 
     @OneToMany(mappedBy = "theater", cascade = CascadeType.REMOVE) //극장이 삭제되면 달린 좌석까지 삭제
     private List<Seat> seatList;
@@ -38,12 +36,14 @@ public class Theater {
     }
 
     public Theater(Integer theaterId, String theaterName, String theaterLocation,
-                   String theaterRecentPlay1, String theaterRecentPlay2, String theaterRecentPlay3) {
+                   String theaterPhoneNumber, String theaterHomePage,
+                   List<Seat> seatList, Integer theaterTotalSeat) {
         this.theaterId = theaterId;
         this.theaterName = theaterName;
         this.theaterLocation = theaterLocation;
-        this.theaterRecentPlay1 = theaterRecentPlay1;
-        this.theaterRecentPlay2 = theaterRecentPlay2;
-        this.theaterRecentPlay3 = theaterRecentPlay3;
+        this.theaterPhoneNumber = theaterPhoneNumber;
+        this.theaterHomePage = theaterHomePage;
+        this.seatList = seatList;
+        this.theaterTotalSeat = theaterTotalSeat;
     }
 }

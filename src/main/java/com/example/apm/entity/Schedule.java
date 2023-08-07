@@ -29,6 +29,19 @@ public class Schedule {
     private PmShow pmShow;
 
     @Column(nullable = false)
-    private LocalDate Date;
+    private String Date;
+
+    private String Time;
     // 연월일까지만 포함 / 시간 필드 생성여부에 따라 LocalDateTime 사용
+
+    public Schedule() {
+
+    }
+
+    public Schedule(Actor actor, PmShow pmShow, String date, String time) {
+        this.actor = actor;
+        this.pmShow = pmShow;
+        this.Date = date;
+        this.Time = time;
+    }
 }

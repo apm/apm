@@ -6,7 +6,6 @@ import com.example.apm.form.UserCreateForm;
 import com.example.apm.repository.UserRepository;
 import com.example.apm.service.UserService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -26,14 +22,16 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    public UserController(UserRepository userRepository, UserService userService, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> doLogin(@Valid @RequestBody LoginDTO loginDTO) {
         String username = loginDTO.getUsername();
         String password = loginDTO.getPassword();
-
-        logger.info("Received login request for username: {}", username);
 
         Optional<SiteUser> userOptional = userRepository.findByusername(username);
         if (userOptional.isPresent()) {
@@ -58,7 +56,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
-        // 사용자 이름이 이미 데이터베이스에 존재하는지 확인
         Optional<SiteUser> existingUser = userRepository.findByusername(userCreateForm.getUsername());
         if (existingUser.isPresent()) {
             Map<String, String> response = new HashMap<>();

@@ -1,6 +1,6 @@
 package com.example.apm.controller;
 
-import com.example.apm.DataNotFoundException;
+import com.example.apm.dto.LoginDTO;
 import com.example.apm.entity.SiteUser;
 import com.example.apm.form.UserCreateForm;
 import com.example.apm.repository.UserRepository;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,16 +26,15 @@ public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/login")
-    public ResponseEntity<Map<String, String>> login() {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Please enter your login information.");
-        return ResponseEntity.ok(response);
-    }
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> doLogin(@RequestParam String username, @RequestParam String password) {
-        // 사용자 이름과 비밀번호를 확인하여 로그인 검증
+    public ResponseEntity<Map<String, String>> doLogin(@Valid @RequestBody LoginDTO loginDTO) {
+        String username = loginDTO.getUsername();
+        String password = loginDTO.getPassword();
+
+        logger.info("Received login request for username: {}", username);
+
         Optional<SiteUser> userOptional = userRepository.findByusername(username);
         if (userOptional.isPresent()) {
             SiteUser user = userOptional.get();
@@ -44,7 +45,6 @@ public class UserController {
             }
         }
 
-        // 로그인 실패
         Map<String, String> response = new HashMap<>();
         response.put("error", "로그인 실패. 사용자 이름 또는 비밀번호가 올바르지 않습니다.");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);

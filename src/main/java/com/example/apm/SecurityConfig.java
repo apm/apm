@@ -25,7 +25,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests().requestMatchers(
-                        new AntPathRequestMatcher("/**")).permitAll()
+                        new AntPathRequestMatcher("/user/login")).permitAll() // /user/login에 대한 접근 허용
+                .requestMatchers(
+                        new AntPathRequestMatcher("/**")).authenticated() // 다른 모든 경로는 인증이 필요
                 .and()
                 .csrf().disable()
                 .formLogin()//로그인 설정을 담당하는 부분

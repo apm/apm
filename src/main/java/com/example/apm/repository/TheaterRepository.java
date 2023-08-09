@@ -1,14 +1,10 @@
 package com.example.apm.repository;
 
 import com.example.apm.entity.Theater;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
+@Repository
 public interface TheaterRepository extends JpaRepository<Theater, Integer> {
-    Theater findByTheaterName(String theaterName);
-    Optional<Theater> findByTheaterId(Integer theaterId);
-    Page<Theater> findAll(Pageable pageable);
+
 }

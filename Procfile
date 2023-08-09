@@ -1,0 +1,1 @@
+web: java -jar build/libs/apm-0.0.1-SANPSHOT.jar

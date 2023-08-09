@@ -148,7 +148,7 @@ public class CrollingService {
         return actorList;
     }
     // 좌석 데이터 저장 파트
-    @Scheduled(cron="0 52 17 * * *")
+    @Scheduled(cron="0 31 0 * * *")
     public void seatSchedule() throws IOException{
         log.info("Seat Save Start");
         List<Theater> theaters = theaterRepository.findAll();
@@ -333,12 +333,12 @@ public class CrollingService {
     // 공연 및 스케쥴 크롤링 파트
     static PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
 
-    @Scheduled(cron = "0 31 14 * * *")
+    @Scheduled(cron = "0 29 22 * * *")
     public void schedule(){
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\tjrqo\\Downloads\\chromedriver_win32 (2)\\chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
-        WebDriver driver = new ChromeDriver(chromeOptions);
+        WebDriver driver = new ChromeDriver();
 
         List<String> basicData = basicMusicData(driver);
         List<String> extractData = extractData(basicData);
@@ -364,7 +364,7 @@ public class CrollingService {
             String playinfo2= row[14];
             String castinginfo1= row[15];
             String castinginfo2= row[16];
-            String genre = "뮤지컬";
+            String genre = "연극";
             String synopsis = "";
             String pmShowId = row[17];
             String poster = row[18];
@@ -399,7 +399,7 @@ public class CrollingService {
 
         List<String> dataList = null;
         try {
-            driver.get("http://ticket.interpark.com/TPGoodsList.asp?Ca=Mus");
+            driver.get("https://ticket.interpark.com/TPGoodsList.asp?Ca=Dra");
 
             // 데이터를 담을 리스트 생성
             dataList = new ArrayList<>();
@@ -600,7 +600,7 @@ public class CrollingService {
 
                 try {
                     executor.executeScript("arguments[0].click();", buttonElement);
-                    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+                    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
                     wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[1]/div[5]/div[1]/div[2]/div[2]/div/div/div[3]/table/tbody")));
 
                 } catch (Exception e) {

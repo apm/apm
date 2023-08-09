@@ -1,9 +1,0 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta name="csrf-token" content="{{#_csrf}}token{{/_csrf}}">
-</head>
-<body>
-    <h3 th:text="${actor.actorName}"></h3>
-    <img th:src="${actor.image}" alt="Actor Image"/>
-</body>
